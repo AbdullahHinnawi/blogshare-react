@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import axios from 'axios';
+import baseUrl from '../../baseUrl';
 
 
 const Login = () =>{
@@ -29,13 +30,13 @@ const Login = () =>{
   };
 
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if(usernameError() || passwordError()){
+    if (usernameError() || passwordError()) {
       setError(true);
       setSuccess(false);
-    }else {
+    } else {
       const loginRequest = {
         username: username,
         password: password,
@@ -46,8 +47,9 @@ const Login = () =>{
       setPassword('');
 
       console.log("NEW loginRequest : ", loginRequest);
-      axios.post("", loginRequest).then(res => {
-        console.log("#### loginRequest response ", res);
+      const url = baseUrl + '/api/users/' + loginRequest.username;
+      await axios.post(url, loginRequest).then(async res => {
+        console.log("#### loginRequest response ", res.data.message);
         setError(false);
         setSuccess(true);
         setSubmitted(false);
