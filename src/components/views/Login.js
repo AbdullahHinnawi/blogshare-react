@@ -36,8 +36,6 @@ const Login = () =>{
       setError(true);
       setSuccess(false);
     }else {
-      // Password confirmation is only on the client side.
-      // There is no need to send the password confirmation field with the user object to the server.
       const loginRequest = {
         username: username,
         password: password,

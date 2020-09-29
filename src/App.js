@@ -9,6 +9,7 @@ import CreateBlog from './components/views/CreateBlog';
 import AllBlogs from './components/views/AllBlogs';
 import Register from './components/views/Register';
 import Login from './components/views/Login';
+import AddCategory from './components/views/AddCategory'
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
             <Route exact path="/" component={Home}/>
             <Route exact  path="/all-blogs" component={AllBlogs}/>
             <Route exact  path="/create-blog" component={CreateBlog}/>
+              <Route exact  path="/add-category" component={AddCategory}/>
             <Route exact  path="/login" component={Login}/>
             <Route exact  path="/register" component={Register}/>
             </Switch>

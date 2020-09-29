@@ -20,6 +20,7 @@ class NavigationBar extends Component{
                 <Nav.Link className="navLink" href="/">Home</Nav.Link>
                 <Nav.Link className="navLink" href="/all-blogs">Blogs</Nav.Link>
                 <Nav.Link className="navLink" href="/create-blog">Create Blog</Nav.Link>
+                <Nav.Link className="navLink" href="/add-category">Add Category</Nav.Link>
                 <Nav.Link className="navLink" href="/register">Register</Nav.Link>
                 <Nav.Link className="navLink" href="/login">Login</Nav.Link>
               </Nav>
