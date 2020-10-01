@@ -6,10 +6,7 @@ import styled from 'styled-components';
 
 
 
-
-
-
-class AllBlogs extends Component{
+class MyBlogs extends Component{
 
   constructor(props){
     super(props);
@@ -20,13 +17,15 @@ class AllBlogs extends Component{
     }
   }
   async componentDidMount() {
+    const userId = '5df14f8898ee0448591ffc1d';
+    const options = {
+      headers: {
+        Authorization: '',
+      }
+    };
 
     try{
-      const res =  await axios.get(baseUrl+'/api/blogs',{
-        headers:{
-          Authorization: '',
-        }
-      });
+      const res =  await axios.get(baseUrl+'/api/myblogs?userId='+userId,options);
       window.console.log('res', res);
       window.console.log('res.data.blogs', res.data.blogs);
       // save received blogs to an array
@@ -49,10 +48,10 @@ class AllBlogs extends Component{
         <Styles>
 
           (
-          <div id="all-blogs"
+          <div id="my-blogs"
                className="d-flex flex-column justify-content-center"
                style={{marginTop: '50px'}}>
-            <h2 className="custom-header">All Blogs</h2>
+            <h2 className="custom-header">My Blogs</h2>
 
             {blogs && blogs.length > 0 &&
             <div className="d-flex flex-wrap justify-content-center">
@@ -73,11 +72,11 @@ class AllBlogs extends Component{
                       </div>
                       <p className="blog-body">{blog.body}</p>
 
-                      <div>
-                        <button className="btn btn-primary readMoreBtn">Read
-                          More...
-                        </button>
-                      </div>
+                      <div class="d-flex editDeleteDiv">
+                        <span><button type="button" tag="button" className=" card-link btn btn-primary">Edit</button></span>
+                      <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
+
+                    </div>
 
                     </div>
 
@@ -101,7 +100,7 @@ class AllBlogs extends Component{
 
 
 }
-export default AllBlogs;
+export default MyBlogs;
 
 
 
@@ -110,27 +109,33 @@ export default AllBlogs;
 
 
 const Styles = styled.div`
-     .taglogo{
-      width: 18px;
-      height: 18px;
+    .taglogo{
+        width: 18px;
+        height: 18px;
     }
     .blog-author, .blog-date{
-      line-height: 7px;
-      color: #262626;
+        line-height: 7px;
+        color: #262626;
+    }
+    .btn-danger:hover{
+        background-color: darkred  !important;
+    }
+    .btn-secondary:hover{
+        background-color: #3E4551  !important;
     }
     .blog-body{
-      margin-top: 1rem;
-      margin-bottom: 3.5rem;
-      text-align: justify;
+        margin-top: 1rem;
+        margin-bottom: 3.5rem;
+        text-align: justify;
     }
-    .readMoreBtn{
-      /*  margin-bottom: 0.3rem !important;*/
-      position: absolute;
-      bottom: 1.5rem;
+    .editDeleteDiv{
+        /*  margin-bottom: 0.3rem !important;*/
+        position: absolute;
+        bottom: 1.5rem;
     }
-    #all-blogs{
-      margin-bottom: 10rem;
-      padding: 2rem;
+    #my-blogs{
+        margin-bottom: 10rem;
+        padding: 2rem;
     }
 `;
 
