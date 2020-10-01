@@ -6,6 +6,11 @@
     background: rgb(0,11,36) !important;
     background: linear-gradient(90deg, rgba(0,11,36,1) 0%, rgba(2,119,189,1) 0%,rgba(13,71,161,1) 100%) !important;
 }
+a.is-active {
+
+    color: red;
+
+}
 @media screen and (max-width: 767px) {
     .navbarCollapse{
         background: rgb(13,71,161);

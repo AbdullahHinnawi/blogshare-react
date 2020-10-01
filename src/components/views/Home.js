@@ -7,6 +7,7 @@ import logo from '../../assets/1.png';
 import logo4 from '../../assets/4.png';
 import register from '../../assets/register.png';
 import Carousel from 'react-bootstrap/Carousel'
+import Button from 'react-bootstrap/Button';
 
 
 

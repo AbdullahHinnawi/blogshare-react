@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
@@ -13,9 +13,16 @@ import '../node_modules/react-multi-carousel/lib/styles.css'
 
 
 ReactDOM.render(
+    /*
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>*/
+    <Suspense fallback={<div>Loading</div>}>
+      <App useSuspense={true}/>
+    </Suspense>
+
+
+    ,
   document.getElementById('root')
 );
 

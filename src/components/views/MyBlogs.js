@@ -68,11 +68,11 @@ class MyBlogs extends Component{
                       <div className="embed-responsive embed-responsive-4by3">
                         <img className="card-img-top embed-responsive-item"
                              src={`${baseUrl}/api/image/` + blog.imageFile}
-                             alt="image"/>
+                             alt="blogImage"/>
                       </div>
                       <p className="blog-body">{blog.body}</p>
 
-                      <div class="d-flex editDeleteDiv">
+                      <div className="d-flex editDeleteDiv">
                         <span><button type="button" tag="button" className=" card-link btn btn-primary">Edit</button></span>
                       <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
 

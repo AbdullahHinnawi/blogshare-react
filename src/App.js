@@ -21,9 +21,9 @@ const App = () => {
             <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/all-blogs" component={AllBlogs}/>
-              <Route path="/my-blogs" component={MyBlogs}/>
+            <Route path="/my-blogs" component={MyBlogs}/>
             <Route path="/create-blog" component={CreateBlog}/>
-              <Route path="/add-category" component={AddCategory}/>
+            <Route path="/add-category" component={AddCategory}/>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
             </Switch>
