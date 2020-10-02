@@ -1,3 +1,7 @@
+.blog-title{
+    color: #0C194D;
+
+}
 form.custom-form, h2.custom-form{
     max-width:40rem;
     display: flex;
@@ -11,6 +15,16 @@ form.custom-form, h2.custom-form{
 h2.custom-form{
     margin-bottom: 20px;
 }
+h2.custom-header{
+    display: flex;
+    flex-direction:column;
+    margin-left: 0.6rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+
+    font-family: 'Roboto', sans-serif !important;
+
+}
 .btn-primary {
     background: rgb(21, 101, 192) !important;
     background: linear-gradient(90deg, rgba(21, 101, 192, 1) 0%, rgba(66, 165, 245, 1) 100%) !important;
@@ -21,4 +35,8 @@ h2.custom-form{
     background-color: #1565c0  !important;
 
 
+}
+.embed-responsive .card-img-top {
+    object-fit: cover;
+    border-radius: 5px;
 }
