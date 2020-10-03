@@ -71,6 +71,7 @@ const Login = () =>{
             window.console.log('Logged in successfully');
           }
           history.push('/all-blogs');
+          window.location.reload(true);
 
         } else { // username not found req.data.message = false
           window.console.log('Invalid username or password!');

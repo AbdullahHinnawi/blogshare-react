@@ -3,6 +3,8 @@ import {
   Nav,
   Navbar,
 } from "react-bootstrap";
+import * as auth from '../../services/authService';
+import loginIcon from '../../assets/login-icon-white.png';
 
 //import PropTypes from "prop-types";
 
@@ -34,13 +36,15 @@ class  NavigationBar extends Component{
                        aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse className="navbarCollapse" id="responsive-navbar-nav">
           <Nav className="ml-auto" activeKey={window.location.pathname}>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/all-blogs">Blogs</Nav.Link>
-            <Nav.Link href="/my-blogs">My Blogs</Nav.Link>
-            <Nav.Link href="/create-blog">Create Blog</Nav.Link>
-            <Nav.Link href="/add-category">Add Category</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            {!auth.isLoggedIn() ?  (<Nav.Link href="/">Home</Nav.Link>) : null}
+            { auth.isLoggedIn() ? (<Nav.Link href="/all-blogs">Blogs</Nav.Link>) : null}
+            { auth.isLoggedIn() ? (<Nav.Link href="/my-blogs">My Blogs</Nav.Link>) : null}
+            { auth.isLoggedIn() ? (<Nav.Link href="/create-blog">Create Blog</Nav.Link>) : null}
+            { auth.isLoggedIn() ? (<Nav.Link href="/add-category">Add Category</Nav.Link>) : null}
+            {!auth.isLoggedIn() ? (<Nav.Link href="/register">Register</Nav.Link>) : null}
+            {!auth.isLoggedIn() ? (<Nav.Link href="/login">Login</Nav.Link>) : null }
+            { auth.isLoggedIn() ? (<Nav.Link href="/login" onClick={auth.logout}>Logout</Nav.Link>) : null }
+            <Nav.Link>{auth.getUsername()} <img src={loginIcon} alt="userIcon" height="30" width="30" style={{marginTop:'-2px'}}/></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
