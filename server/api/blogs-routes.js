@@ -101,8 +101,7 @@ const upload = multer({ storage });
 // **********************               ******************** //
 
 // Get all blogs
-//router.get('/api/blogs', auth.requireLogin, (req,res) =>{
-router.get('/api/blogs', (req,res) =>{
+router.get('/api/blogs', auth.requireLogin, (req,res) =>{
  // console.log('req.headers: ',req.headers);
   Blog.find(function(err, blogs){
     if(err) return console.log(err);
@@ -111,8 +110,7 @@ router.get('/api/blogs', (req,res) =>{
 });
 
 // Get MY BLOGS
-//router.get('/api/myblogs', auth.requireLogin, (req,res) =>{
-router.get('/api/myblogs', (req,res) =>{
+router.get('/api/myblogs', auth.requireLogin, (req,res) =>{
   const authorId = req.query.userId;
   console.log('authorId:');
   console.log(authorId);
@@ -129,8 +127,7 @@ router.get('/api/myblogs', (req,res) =>{
 });
 
 // Get all categories
-//router.get('/api/categories',auth.requireLogin, (req,res) =>{
-router.get('/api/categories', (req,res) =>{
+router.get('/api/categories', auth.requireLogin, (req,res) =>{
   Categories.find(function(err, categories){
     if(err) return console.log(err);
     return res.status(200).json({categories: categories})
@@ -139,8 +136,7 @@ router.get('/api/categories', (req,res) =>{
 
 
 // Save a category
-//router.post('/api/categories/add',auth.requireLogin, (req,res) =>{
-router.post('/api/categories/add', (req,res) =>{
+router.post('/api/categories/add',auth.requireLogin, (req,res) =>{
   console.log('req.body:');
   console.log(req.body);
   Categories.find({}, (error,categories) =>{
@@ -187,8 +183,7 @@ router.post('/api/categories/add', (req,res) =>{
 });
 
 // Get a category
-//router.get('/api/categories/show/:category', auth.requireLogin, (req,res)=>{
-router.get('/api/categories/show/:category', (req,res)=>{
+router.get('/api/categories/show/:category', auth.requireLogin, (req,res)=>{
   Blog.find({category: req.params.category},function(err, blogs){
     if(err) return console.log(err);
     return res.status(200).json({blogs: blogs})
@@ -199,8 +194,7 @@ router.get('/api/categories/show/:category', (req,res)=>{
 //auth.requireLogin: every time the user tries to access this endpoint
 //it will run, check for the token and make sure that the
 // user is logged in, if the user is logged in, it will return the token
-//////// router.post('/api/blogs',auth.requireLogin,upload.single('imageFile'), (req,res) =>{
-router.post('/api/blogs',upload.single('imageFile'), (req,res) =>{
+router.post('/api/blogs', auth.requireLogin,upload.single('imageFile'), (req,res) =>{
  // res.json({file: req.file});
  // res.redirect('http://localhost:8080/');
   console.log('req.file####');
@@ -209,8 +203,8 @@ router.post('/api/blogs',upload.single('imageFile'), (req,res) =>{
   console.log(req.body);
 
 
-  const id = '5e15e57d67daa4164622ebdb';
-  //const id = auth.getUserId(req);
+  //const id = '5e15e57d67daa4164622ebdb';
+  const id = auth.getUserId(req);
   console.log(req);
   console.log('id%%%%%%%%%%%%');
   console.log(id);
@@ -305,8 +299,7 @@ router.get('/api/image/:filename', (req,res) =>{
 
 
 // GET A BLOG BY ID for show endpoint
-//router.get('/api/blogs/show/:id',auth.requireLogin, function(req,res) {
-router.get('/api/blogs/show/:id', function(req,res) {
+router.get('/api/blogs/show/:id',auth.requireLogin, function(req,res) {
 
   Blog.findOne({_id: req.params.id}, (error, blog) =>{
     if(error){
@@ -322,8 +315,7 @@ router.get('/api/blogs/show/:id', function(req,res) {
 
 let commentId = 0;
 // add a comment
-// router.post('/api/addcomment', auth.requireLogin, (req, res) =>{
-router.post('/api/addcomment', (req, res) =>{
+router.post('/api/addcomment', auth.requireLogin, (req, res) =>{
   console.log('received comment');
   console.log(req.body);
   let comment= null;
@@ -350,8 +342,7 @@ router.post('/api/addcomment', (req, res) =>{
 
 
 // GET A BLOG BY ID
-//router.get('/api/blogs/:id',auth.requireLogin, function(req,res) {
-router.get('/api/blogs/:id', function(req,res) {
+router.get('/api/blogs/:id',auth.requireLogin, function(req,res) {
 
   Blog.findOne({_id: req.params.id}, (error, blog) =>{
     if(error){
@@ -368,8 +359,7 @@ router.get('/api/blogs/:id', function(req,res) {
 
 
 // ********  UPDATE OR EDIT A BLOG  *********
-// router.put('/api/myblogs/:id',auth.requireLogin,upload.single('imageFile'),function(req, res) {
-router.put('/api/myblogs/:id',upload.single('imageFile'),function(req, res) {
+router.put('/api/myblogs/:id',auth.requireLogin ,upload.single('imageFile'),function(req, res) {
   console.log('put request BODY ###');
   console.log(req.body);
 

@@ -8,8 +8,8 @@ export function generateJWT(user){
   return jwt.sign({user: tokenData},process.env.TOKEN_SECRET );
 }
 
-// requireLogin function can be attached to any route that require
-// user to be logged in to access it
+// requireLogin function can be attached to any route that requires
+// user to be logged in to be accessible
 export function requireLogin(req, res,  next){
   const token = decodeToken(req);
   if(!token){

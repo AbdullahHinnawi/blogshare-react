@@ -3,6 +3,7 @@ import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
+import * as auth from '../../services/authService';
 
 
 
@@ -24,7 +25,7 @@ class AllBlogs extends Component{
     try{
       const res =  await axios.get(baseUrl+'/api/blogs',{
         headers:{
-          Authorization: '',
+          Authorization: auth.getToken(),
         }
       });
       window.console.log('res', res);

@@ -4,7 +4,7 @@ import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
 
-
+import * as auth from '../../services/authService';
 
 class MyBlogs extends Component{
 
@@ -17,10 +17,10 @@ class MyBlogs extends Component{
     }
   }
   async componentDidMount() {
-    const userId = '5df14f8898ee0448591ffc1d';
+    const userId = auth.getUserId();
     const options = {
       headers: {
-        Authorization: '',
+        Authorization: auth.getToken(),
       }
     };
 
@@ -72,11 +72,10 @@ class MyBlogs extends Component{
                       </div>
                       <p className="blog-body">{blog.body}</p>
 
-                      <div className="d-flex editDeleteDiv">
+                      {blog.authorId === auth.getUserId() && <div className="d-flex editDeleteDiv">
                         <span><button type="button" tag="button" className=" card-link btn btn-primary">Edit</button></span>
-                      <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
-
-                    </div>
+                        <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
+                      </div>}
 
                     </div>
 

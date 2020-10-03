@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import * as auth from '../../services/authService';
 
 
 //import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
@@ -27,7 +27,10 @@ class CreateBlog extends Component{
         author: 'www'
       },
       categories:[],
-      editorContent:''
+      editorContent:'',
+      error:false,
+      success:false,
+      message: ''
 
 
     };
@@ -43,7 +46,7 @@ class CreateBlog extends Component{
     try{
       const res =  await axios.get(baseUrl+'/api/categories', {
         headers: {
-          Authorization: '',
+          Authorization: auth.getToken(),
         }
       });
       window.console.log('data',res.data);
@@ -85,16 +88,27 @@ class CreateBlog extends Component{
       await axios.post(baseUrl + '/api/blogs', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: '',
+          Authorization: auth.getToken(),
         }
       }).then(function(res) {
         window.console.log('res.data', res.data);
       }).catch(function(err) {
         window.console.log('errrrrrrrrrrrrrrrrrrrroooooooooooor', err);
       });
+      this.setState({
+        message: 'Blog created successfully!',
+        error: false,
+        success: true
+      });
+      this.props.history.push('/all-blogs');
 
     }else{
       window.console.log('editor field is empty');
+      this.setState({
+        message: 'Text editor field is empty!',
+        error: true,
+        success: false
+      })
     }
 
 
@@ -105,7 +119,7 @@ class CreateBlog extends Component{
     return(
         <Styles>
 
-          <div id="create-blog" style={{marginTop:'100px'}}>
+          <div id="create-blog" style={{marginTop:'50px'}}>
 
             <h2 className="custom-form mb-3">Create Blog</h2>
             <form className="custom-form" onSubmit={this.onSubmit}>
@@ -137,12 +151,20 @@ class CreateBlog extends Component{
 
               <div className="form-group textEditor">
                 <label htmlFor="textEditorContent"/>
-                <CKEditor
+                <CKEditor style={{minHeight: '300px'}}
                     editor={ ClassicEditor }
                     data="<p>Hello from CKEditor 5!</p>"
                     onInit={ editor => {
                       // You can store the "editor" and use when it is needed.
                       console.log( 'Editor is ready to use!', editor );
+                      editor.editing.view.change(writer => {
+                        writer.setStyle(
+                            "min-height",
+                            "300px",
+                            editor.editing.view.document.getRoot()
+                        );
+                      });
+
                     } }
                     onChange={ ( event, editor ) => {
                       const data = editor.getData();
@@ -171,6 +193,21 @@ class CreateBlog extends Component{
                 <button type="submit" name="submit"
                         className="btn btn-primary">Create
                 </button>
+              </div>
+
+              {/*<!--ALERT-->*/}
+              <div>
+                {this.state.error && <div
+                    style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-danger"> {this.state.message}</div>
+                </div>}
+
+                {this.state.success && <div
+                    style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-success"> {this.state.message}</div>
+                </div>}
+
+
               </div>
 
 
