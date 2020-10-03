@@ -209,7 +209,8 @@ router.post('/api/blogs',upload.single('imageFile'), (req,res) =>{
   console.log(req.body);
 
 
-  const id = auth.getUserId(req);
+  const id = '5e15e57d67daa4164622ebdb';
+  //const id = auth.getUserId(req);
   console.log(req);
   console.log('id%%%%%%%%%%%%');
   console.log(id);

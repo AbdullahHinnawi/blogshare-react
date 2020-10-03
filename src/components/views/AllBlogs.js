@@ -41,7 +41,6 @@ class AllBlogs extends Component{
 
 
   }
-
   render() {
     const {blogs} = this.state;
 
