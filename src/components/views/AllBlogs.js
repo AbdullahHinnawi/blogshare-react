@@ -1,11 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, memo as propsAreEqual} from 'react';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
 import * as auth from '../../services/authService';
+import * as blogService from '../../services/blogService';
+import {Nav, Navbar} from "react-bootstrap";
+import Truncate from 'react-truncate';
 
-
+import { BrowserRouter as Link, Route, Switch } from "react-router-dom";
+import NavLink from 'react-bootstrap/NavLink';
 
 
 
@@ -45,6 +49,7 @@ class AllBlogs extends Component{
   render() {
     const {blogs} = this.state;
 
+    let blogId;
     return (
         <Styles>
 
@@ -59,7 +64,7 @@ class AllBlogs extends Component{
 
               {blogs.map((blog, index) => (
                   <div key={index} className="card mb-2 ml-2 p-4"
-                       style={{width: "32rem"}}>
+                       style={{width: '32rem'}}>
                     <div className="card-in">
                       <h2>{blog.title}</h2>
                       <p><img className="taglogo" src={taglogo} alt="tag logo"/>
@@ -71,10 +76,16 @@ class AllBlogs extends Component{
                              src={`${baseUrl}/api/image/` + blog.imageFile}
                              alt="image"/>
                       </div>
-                      <p className="blog-body">{blog.body}</p>
+                      <p className="blog-body">
+                        <Truncate lines={5}>
+                          {blog.body}
+                        </Truncate>
+
+                      </p>
 
                       <div>
-                        <button className="btn btn-primary readMoreBtn">Read
+                        <button onClick={() => {blogService.setBlogId(blog._id); this.props.history.push(`/blogs/show/${blog._id}`)}}
+                                  className="btn btn-primary readMoreBtn">Read
                           More...
                         </button>
                       </div>
@@ -87,7 +98,7 @@ class AllBlogs extends Component{
             </div>}
 
             {!blogs && <div className="ml-2"
-                            style={{maxWidth: "35rem", marginBottom: "30rem"}}>
+                            style={{maxWidth: '35rem', marginBottom: '30rem'}}>
               <div className="alert alert-info">No Blogs Found.</div>
             </div>}
 
@@ -127,6 +138,7 @@ const Styles = styled.div`
       /*  margin-bottom: 0.3rem !important;*/
       position: absolute;
       bottom: 1.5rem;
+      padding: 5px 10px;
     }
     #all-blogs{
       margin-bottom: 10rem;

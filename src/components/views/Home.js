@@ -56,7 +56,7 @@ class Home extends Component{
                           href="/register"
                           className="btn btn-primary p-2"
                           role="button"
-                          style={{width: "120px", marginLeft: 'auto', marginRight: 'auto'}}
+                          style={{width: "124px", marginLeft: 'auto', marginRight: 'auto'}}
                       >
                         Register Now
                       </Nav.Link>
@@ -88,7 +88,7 @@ class Home extends Component{
                           href="/register"
                           className="btn btn-primary p-2"
                           role="button"
-                          style={{width: "120px", marginLeft: 'auto', marginRight: 'auto'}}
+                          style={{width: "124px", marginLeft: 'auto', marginRight: 'auto'}}
                       >
                         Register Now
                       </Nav.Link>
@@ -117,7 +117,7 @@ class Home extends Component{
                           href="/register"
                           className="btn btn-primary p-2"
                           role="button"
-                          style={{width: "120px", marginLeft: 'auto', marginRight: 'auto'}}
+                          style={{width: "124px", marginLeft: 'auto', marginRight: 'auto'}}
                       >
                         Register Now
                       </Nav.Link>
@@ -229,11 +229,11 @@ const Styles = styled.div`
     user-select: none;
     height: 27rem;
   }
-#marketing{
+  #marketing{
   padding:2rem;
   text-align: center;
   text-anchor: end;
-}
+  }
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {
       font-size: 3.5rem;
