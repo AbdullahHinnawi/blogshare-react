@@ -2,9 +2,13 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
+import * as auth from '../../services/authService';
+import {useHistory} from "react-router-dom";
 
 
 const Login = () =>{
+
+  const history = useHistory();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +17,10 @@ const Login = () =>{
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const [alertError, setAlertError] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [message, setMessage] = useState(false);
 
 
   const handleUsernameChange = (e) => {
@@ -46,17 +54,39 @@ const Login = () =>{
       setUsername('');
       setPassword('');
 
-      console.log("NEW loginRequest : ", loginRequest);
-      const url = baseUrl + '/api/users/' + loginRequest.username;
-      await axios.post(url, loginRequest).then(async res => {
-        console.log("#### loginRequest response ", res.data.message);
+      console.log("NEW user loginRequest : ", loginRequest);
+
+      await axios.get(baseUrl+'/api/users/' + loginRequest.username).then(async res => {
+        window.console.log('res.data.message', res.data.message);
         setError(false);
         setSuccess(true);
         setSubmitted(false);
+        if (res.data.message === true) { // username found
+          await auth.login(loginRequest);
 
-      }).catch(err => {
-        console.log("Error: ", err);
+          if (auth.isLoggedIn) {
+            setAlertError(false);
+            setAlertSuccess(true);
+            setMessage('Logged in successfully');
+            window.console.log('Logged in successfully');
+          }
+          history.push('/all-blogs');
+
+        } else { // username not found req.data.message = false
+          window.console.log('Invalid username or password!');
+          setAlertError(true);
+          setAlertSuccess(false);
+          setMessage('Invalid username or password!');
+        }
+      }).catch(error => { // 401 (Unauthorized) Invalid password
+        window.console.log(error);
+        window.console.log('Invalid username or password!');
+        setAlertError(true);
+        setAlertSuccess(false);
+        setMessage('Invalid username or password!');
       });
+
+
     }
 
   };
@@ -103,6 +133,22 @@ const Login = () =>{
                 <button type="submit" className="btn btn-primary">
                   Log In
                 </button>
+              </div>
+
+
+              {/*<!--ALERT-->*/}
+              <div>
+                {alertError && <div
+                    style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-danger"> {message}</div>
+                </div>}
+
+                {alertSuccess && <div
+                    style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-success"> {message}</div>
+                </div>}
+
+
               </div>
 
 

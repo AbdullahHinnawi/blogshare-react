@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import axios from "axios";
-
+import baseUrl from '../../baseUrl';
+import * as auth from '../../services/authService';
+import {useHistory} from "react-router-dom";
 
 
 
 const Register = () =>{
+
+  const history = useHistory();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -15,6 +20,7 @@ const Register = () =>{
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState(false);
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -52,18 +58,19 @@ const Register = () =>{
     return confirmPassword === '' || confirmPassword !== password;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if(firstNameError() || lastNameError() || usernameError() || passwordError() || confirmPasswordError()){
+    if (firstNameError() || lastNameError() || usernameError() ||
+        passwordError() || confirmPasswordError()) {
       setError(true);
       setSuccess(false);
-    }else {
+    } else {
       // Password confirmation is only on the client side.
       // There is no need to send the password confirmation field with the user object to the server.
-      const registerForm = {
-        firstName: firstName,
-        lastName: lastName,
+      const newUser = {
+        firstname: firstName,
+        lastname: lastName,
         username: username,
         password: password,
 
@@ -75,12 +82,28 @@ const Register = () =>{
       setPassword('');
       setConfirmPassword('');
 
-      console.log("NEW registerForm object: ", registerForm);
-      axios.post("", registerForm).then(res => {
-        console.log("#### register user response ", res);
+      console.log("NEW user object: ", newUser);
+      await axios.get(baseUrl+'/api/users/'+ newUser.username).then(async res => {
+        window.console.log('Register user : res.data.message', res.data.message);
         setError(false);
         setSuccess(true);
         setSubmitted(false);
+        if (res.data.message === true) {
+          window.console.log("Username is already registered!");
+          setSuccess(false);
+          setError(true);
+          setMessage('Username is already registered!')
+        } else {
+          setSuccess(true);
+          setError(false);
+          setMessage('Registered! Successfully!');
+          const registerPromise = auth.registerUser(newUser);
+          await Promise.all([registerPromise]);
+          window.console.log("Registered! Successfully!");
+          history.push("/login")
+
+        }
+
 
       }).catch(err => {
         console.log("Error: ", err);
@@ -88,6 +111,7 @@ const Register = () =>{
     }
 
   };
+
 
   return(
         <Styles>
@@ -175,6 +199,21 @@ const Register = () =>{
                 <button type="submit" className="btn btn-primary">
                   Register
                 </button>
+              </div>
+
+              {/*<!--ALERT-->*/}
+              <div>
+                {error && <div
+                                style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-danger"> {message}</div>
+                </div>}
+
+                {success && <div
+                    style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
+                  <div className="alert alert-success"> {message}</div>
+                </div>}
+
+
               </div>
 
 
