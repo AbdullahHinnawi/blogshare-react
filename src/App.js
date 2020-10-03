@@ -11,6 +11,7 @@ import MyBlogs from './components/views/MyBlogs';
 import Register from './components/views/Register';
 import Login from './components/views/Login';
 import AddCategory from './components/views/AddCategory'
+import Footer from './components/layout/Footer';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
             </Switch>
+            <Footer/>
           </div>
       </Router>
   );
