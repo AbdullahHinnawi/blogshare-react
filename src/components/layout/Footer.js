@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from 'styled-components';
-
+import * as auth from '../../services/authService';
 
 class Footer extends Component {
 
@@ -17,7 +17,7 @@ class Footer extends Component {
                       <div className="footer-pad">
                         <h4>BlogShare</h4>
                         <ul className="list-unstyled">
-                          <li><a href="/">Home</a></li>
+                          <li>{!auth.isLoggedIn() ? (<a href="/">Home</a>) : (<a href="/all-blogs">Home</a>) }</li>
                           <li><a href="#">Features</a></li>
                           <li><a href="#">About us</a></li>
                           <li><a href="#">Ratings</a></li>

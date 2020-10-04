@@ -20,15 +20,22 @@ class ShowBlog extends Component{
       blog: null,
       comments: null,
       receivedImage: null,
-      comment:{
-        commentAuthor: '',
-        body: '',
-        commentDate: ''
-      },
+      commentAuthor: '',
+      commentBody: '',
+      commentDate: '',
       BlogId: '',
       showComments: false
 
-    }
+    };
+    this.submitComment = this.submitComment.bind(this);
+    this.onChange = this.onChange.bind(this);
+
+  }
+  onChange(e){
+    this.setState({ [e.target.name]: e.target.value });
+    //let comment = this.state.comment;
+   // comment[e.target.name] = e.target.value;
+    //this.setState({comment});
   }
   async componentDidMount() {
 
@@ -49,12 +56,40 @@ class ShowBlog extends Component{
       const reversedCommentsArray = commentsArray.reverse();
       this.setState({
         blog: res.data.blog,
-        comments: reversedCommentsArray
+        comments: reversedCommentsArray,
+        blogId: res.data.blog._id
 
       });
     }catch(err){
       window.console.log(err);
     }
+
+
+  }
+
+  async submitComment(e){
+    e.preventDefault();
+    const comment ={
+      commentAuthor: auth.getUsername(),
+      body: this.state.commentBody,
+      commentDate: '',
+      blogId: this.state.blogId
+    };
+
+    window.console.log('comment', comment);
+
+    await axios.post(baseUrl+'/api/addcomment',comment,{
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: auth.getToken(),
+      }
+    }).then((res) =>{
+      window.console.log('res.data', res.data);
+      //window.location.reload();
+    }).catch((err) =>{
+      window.console.log('errrrrrrrrrrrrrrrrrrrroooooooooooor');
+      window.console.log(err);
+    });
 
 
   }
@@ -82,33 +117,39 @@ class ShowBlog extends Component{
 
                     <div>
                       <h4>Add Comment</h4>
-                      <form>
+                      <form onSubmit={this.submitComment}>
                           <div className="form-group">
 
-                            <textarea className="form-control commentBody" id="commentBody" type="text"  name="commentBody" placeholder="Input your comment"/>
+                            <textarea className="form-control commentBody"
+                                      id="commentBody" type="text"
+                                      name="commentBody" placeholder="Input your comment"
+                                      value={this.state.commentBody}
+                                      onChange={this.onChange}
+                                      required
+                            />
                           </div>
                           <div className="form-group">
                             <button type="submit" name="submit" className="btn btn-primary commentBtn">Comment</button>
                           </div>
                       </form>
                     </div>
-                    <p>
+                    {comments && comments.length > 0 && <p>
                       <a className="control"
                          onClick={() => {this.setState({showComments: !this.state.showComments})}}
                           href="#com-div"
-                          ref="viewComments">View all comments
+                          ref="viewComments">{showComments ? 'Hide comments': 'View all comments'}
                       </a>
-                    </p>
-                    <div id="hide">
+                    </p>}
+                    {comments && comments.length > 0 && showComments && <div id="hide">
                       <h3>Comments</h3>
-                      {comments && comments.length > 0 && <div className="card-footer">
-                        <p className="comment-author"><b>comment author</b></p>
-                        <p className="comment-date">comment date</p>
-                        <p>comment body</p>
-                      </div>}
-                    </div>
+                      {comments.map((comment, index) => (<div key={index} className="card-footer">
+                        <p className="comment-author"><b>{comment.commentAuthor}</b></p>
+                        <p className="comment-date">{comment.commentdate}</p>
+                        <p>{comment.body}</p>
+                      </div>))}
+                    </div>}
 
-                    {comments && comments.length === 0 && <div className="ml-2"
+                    {comments && comments.length === 0 && <div
                        style={{maxWidth: "35rem"}}>
                         <div className="alert alert-info">
                           This blog has no comments yet!

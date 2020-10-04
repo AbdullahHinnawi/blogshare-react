@@ -28,7 +28,7 @@ class Home extends Component{
 
           <div id="custom-home" style={{marginTop: '60px'}}>
 
-            <Carousel className="carouselSlider">
+            <Carousel className="carouselSlider" style={{backgroundColor: '#0D47A0'}}>
               <Carousel.Item>
                 <svg className="bd-placeholder-img" width="100%" height="100%"
                      xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ class Home extends Component{
                     <img src={logo} alt="slideImage2"
                          style={{height: "60px"}}/>
                     <p>Welcome to BlogShare Application</p>
-                    <p>BlogShare is an online magazine or informative website
+                    <p>BlogShare is an informative website
                       that displays
                       information in a reverse chronological order, with the
                       most
@@ -136,9 +136,9 @@ class Home extends Component{
 
               <div className="row featurette">
                 <div className="col-md-7">
-                  <h2 className="featurette-heading">Register or Login</h2>
+                  <h2 className="featurette-heading">Create an Account</h2>
                   <p className="lead">In order to access to BlogShare
-                    community, you need to register or login</p>
+                    community, you need to create an account</p>
                 </div>
                 <div className="col-md-5">
                   <img src={register}
