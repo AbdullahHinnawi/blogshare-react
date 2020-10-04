@@ -104,7 +104,8 @@ const Register = () =>{
           const registerPromise = auth.registerUser(newUser);
           await Promise.all([registerPromise]);
           window.console.log("Registered! Successfully!");
-          history.push("/login")
+          history.push("/login");
+          window.location.reload();
 
         }
 
