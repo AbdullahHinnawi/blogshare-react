@@ -5,11 +5,8 @@ import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
 import * as auth from '../../services/authService';
 import * as blogService from '../../services/blogService';
-import {Nav, Navbar} from "react-bootstrap";
 import Truncate from 'react-truncate';
 
-import { BrowserRouter as Link, Route, Switch } from "react-router-dom";
-import NavLink from 'react-bootstrap/NavLink';
 
 
 
@@ -56,7 +53,7 @@ class AllBlogs extends Component{
           (
           <div id="all-blogs"
                className="d-flex flex-column justify-content-center"
-               style={{marginTop: '50px'}}>
+               style={{marginTop: '30px'}}>
             <h2 className="custom-header">All Blogs</h2>
 
             {blogs && blogs.length > 0 &&
@@ -68,7 +65,7 @@ class AllBlogs extends Component{
                     <div className="card-in">
                       <h2>{blog.title}</h2>
                       <p><img className="taglogo" src={taglogo} alt="tag logo"/>
-                        <b>{blog.category.toUpperCase()}</b></p>
+                        <b><a href={`/categories/show/${blog.category}`} style={{color:"#0d47a1"}}>{blog.category.toUpperCase()}</a></b></p>
                       <p className="blog-author">By <b>{blog.author}</b></p>
                       <p className="blog-date">On {blog.date}</p>
                       <div className="embed-responsive embed-responsive-4by3">

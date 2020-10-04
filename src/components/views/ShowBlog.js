@@ -69,7 +69,7 @@ class ShowBlog extends Component{
                 <div className="card mb-2 ml-2 p-4" style={{width: "50rem"}}>
                     <h2 className="blog-title">{blog.title}</h2>
                     <p className="blog-category"><img className="taglogo" src={taglogo} alt="tag logo"/>
-                      <b>{blog.category.toUpperCase()}</b>
+                      <b><a href={`/categories/show/${blog.category}`} style={{color:"#0d47a1"}}>{blog.category.toUpperCase()}</a></b>
                     </p>
                     <p className="blog-author">By <b>{blog.author}</b></p>
                     <p className="blog-date">On {blog.date} </p>

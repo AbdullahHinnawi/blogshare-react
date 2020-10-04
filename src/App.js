@@ -12,6 +12,7 @@ import Register from './components/views/Register';
 import Login from './components/views/Login';
 import AddCategory from './components/views/AddCategory'
 import ShowBlog from './components/views/ShowBlog';
+import ShowCategory from './components/views/ShowCategory';
 import Footer from './components/layout/Footer';
 
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/my-blogs" component={MyBlogs}/>
             <Route path="/create-blog" component={CreateBlog}/>
             <Route path="/blogs/show/:id" component={ShowBlog}/>
+            <Route path="/categories/show/:category" component={ShowCategory}/>
             <Route path="/add-category" component={AddCategory}/>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>

@@ -3,62 +3,69 @@ import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
-
 import * as auth from '../../services/authService';
+import * as blogService from '../../services/blogService';
+import Truncate from 'react-truncate';
 
-class MyBlogs extends Component{
+
+
+
+
+
+class ShowCategory extends Component{
 
   constructor(props){
     super(props);
     this.state = {
       blogs: null,
-      currentBlogId: null,
-      reveivedImage: null
+      receivedImage: null,
+      currentCategoryId: null
     }
   }
   async componentDidMount() {
-    const userId = auth.getUserId();
-    const options = {
-      headers: {
-        Authorization: auth.getToken(),
-      }
-    };
+
+    window.console.log("current category id");
+    const pathname = this.props.location.pathname;
+    window.console.log("this.props.location.pathname", pathname);
 
     try{
-      const res =  await axios.get(baseUrl+'/api/myblogs?userId='+userId,options);
+      const res =  await axios.get(baseUrl+'/api'+pathname,{
+        headers:{
+          Authorization: auth.getToken(),
+        }
+      });
       window.console.log('res', res);
-      window.console.log('res.data.blogs', res.data.blogs);
-      // save received blogs to an array
-      const array = res.data.blogs;
-      // make a reversed array
-      const reversedArray = array.reverse();
-      window.console.log('reversedArray', reversedArray);
-      this.setState({blogs: reversedArray});
+      window.console.log('show category res.data', res.data);
+      const blogsArray = res.data.blogs;
+      const reversedBlogsArray = blogsArray.reverse();
+      this.setState({
+        blogs: reversedBlogsArray,
+      });
     }catch(err){
       window.console.log(err);
     }
 
 
   }
-
   render() {
     const {blogs} = this.state;
 
     return (
+
         <Styles>
 
           (
-          <div id="my-blogs"
+          <div id="show-category"
                className="d-flex flex-column justify-content-center"
                style={{marginTop: '30px'}}>
-            <h2 className="custom-header">My Blogs</h2>
+            <h2 className="custom-header">Show Category</h2>
 
             {blogs && blogs.length > 0 &&
             <div className="d-flex flex-wrap justify-content-center">
 
               {blogs.map((blog, index) => (
                   <div key={index} className="card mb-2 ml-2 p-4"
-                       style={{width: "32rem"}}>
+                       style={{width: '32rem'}}>
                     <div className="card-in">
                       <h2>{blog.title}</h2>
                       <p><img className="taglogo" src={taglogo} alt="tag logo"/>
@@ -68,14 +75,21 @@ class MyBlogs extends Component{
                       <div className="embed-responsive embed-responsive-4by3">
                         <img className="card-img-top embed-responsive-item"
                              src={`${baseUrl}/api/image/` + blog.imageFile}
-                             alt="blogImage"/>
+                             alt="image"/>
                       </div>
-                      <p className="blog-body">{blog.body}</p>
+                      <p className="blog-body">
+                        <Truncate lines={5}>
+                          {blog.body}
+                        </Truncate>
 
-                      {blog.authorId === auth.getUserId() && <div className="d-flex editDeleteDiv">
-                        <span><button type="button" tag="button" className=" card-link btn btn-primary">Edit</button></span>
-                        <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
-                      </div>}
+                      </p>
+
+                      <div>
+                        <button onClick={() => {blogService.setBlogId(blog._id); this.props.history.push(`/blogs/show/${blog._id}`)}}
+                                className="btn btn-primary readMoreBtn">Read
+                          More...
+                        </button>
+                      </div>
 
                     </div>
 
@@ -85,7 +99,7 @@ class MyBlogs extends Component{
             </div>}
 
             {!blogs && <div className="ml-2"
-                            style={{maxWidth: "35rem", marginBottom: "30rem"}}>
+                            style={{maxWidth: '35rem', marginBottom: '30rem'}}>
               <div className="alert alert-info">No Blogs Found.</div>
             </div>}
 
@@ -93,13 +107,15 @@ class MyBlogs extends Component{
           </div>
           )
         </Styles>
+
+
     );
 
   }
 
 
 }
-export default MyBlogs;
+export default ShowCategory;
 
 
 
@@ -108,7 +124,7 @@ export default MyBlogs;
 
 
 const Styles = styled.div`
-    .taglogo{
+        .taglogo{
         width: 18px;
         height: 18px;
     }
@@ -116,25 +132,20 @@ const Styles = styled.div`
         line-height: 7px;
         color: #262626;
     }
-    .btn-danger:hover{
-        background-color: darkred  !important;
-    }
-    .btn-secondary:hover{
-        background-color: #3E4551  !important;
-    }
     .blog-body{
         margin-top: 1rem;
         margin-bottom: 3.5rem;
         text-align: justify;
     }
-    .editDeleteDiv{
+    .readMoreBtn{
         /*  margin-bottom: 0.3rem !important;*/
         position: absolute;
         bottom: 1.5rem;
     }
-    #my-blogs{
-        margin-bottom: 10rem;
+    #show-category{
+        margin-bottom:10rem;
         padding: 2rem;
     }
-`;
 
+     
+`;

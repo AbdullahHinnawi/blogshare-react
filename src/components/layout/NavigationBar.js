@@ -28,10 +28,13 @@ class  NavigationBar extends Component{
   return (
       <Navbar className="navBar navbar-dark" collapseOnSelect expand="md"
               fixed="top" style={{fontWeight: "550"}}>
-        <Navbar.Brand href="/">
+        {!auth.isLoggedIn() ? (<Navbar.Brand href="/">
           <img src={logo} style={{height: "40px", marginLeft: "-10px"}}
                alt={logo}/>
-        </Navbar.Brand>
+        </Navbar.Brand>) : (<Navbar.Brand href="all-blogs">
+          <img src={logo} style={{height: "40px", marginLeft: "-10px"}}
+               alt={logo}/>
+        </Navbar.Brand>) }
         <Navbar.Toggle className="navbar-toggler"
                        aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse className="navbarCollapse" id="responsive-navbar-nav">
