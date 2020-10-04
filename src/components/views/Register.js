@@ -20,6 +20,9 @@ const Register = () =>{
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const [alertError, setAlertError] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
   const [message, setMessage] = useState(false);
 
   const handleFirstNameChange = (e) => {
@@ -76,11 +79,7 @@ const Register = () =>{
 
       };
 
-      setFirstName('');
-      setLastName('');
-      setUsername('');
-      setPassword('');
-      setConfirmPassword('');
+
 
       console.log("NEW user object: ", newUser);
       await axios.get(baseUrl+'/api/users/'+ newUser.username).then(async res => {
@@ -88,14 +87,19 @@ const Register = () =>{
         setError(false);
         setSuccess(true);
         setSubmitted(false);
+        setFirstName('');
+        setLastName('');
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
         if (res.data.message === true) {
           window.console.log("Username is already registered!");
-          setSuccess(false);
-          setError(true);
+          setAlertSuccess(false);
+          setAlertError(true);
           setMessage('Username is already registered!')
         } else {
-          setSuccess(true);
-          setError(false);
+          setAlertSuccess(true);
+          setAlertError(false);
           setMessage('Registered! Successfully!');
           const registerPromise = auth.registerUser(newUser);
           await Promise.all([registerPromise]);
@@ -203,12 +207,12 @@ const Register = () =>{
 
               {/*<!--ALERT-->*/}
               <div>
-                {error && <div
+                {alertError && <div
                                 style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
                   <div className="alert alert-danger"> {message}</div>
                 </div>}
 
-                {success && <div
+                {alertSuccess && <div
                     style={{maxWidth: "35rem", marginBottom: "30rem", fontWeight: "normal"}}>
                   <div className="alert alert-success"> {message}</div>
                 </div>}
