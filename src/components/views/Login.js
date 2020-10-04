@@ -166,7 +166,7 @@ export default Login;
 
 const Styles = styled.div`
     .login{
-        margin-bottom: 20rem;
+        margin-bottom: 35rem;
         padding: 2rem;
     }
         .errorMessage {
