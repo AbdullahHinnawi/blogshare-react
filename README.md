@@ -1,6 +1,5 @@
 
-![blogshre](src/assets/2.png)
-<h4 align="center">Welcome to BlogShare App</h4>
+# Welcome to BlogShare App
 
 ### ✨ [API Documentation](http://users.metropolia.fi/~abdullh/MovieSurfer_JavaDoc)
 
