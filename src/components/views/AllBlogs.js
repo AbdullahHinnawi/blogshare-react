@@ -1,10 +1,9 @@
-import React, {Component, memo as propsAreEqual} from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
 import * as auth from '../../services/authService';
-import * as blogService from '../../services/blogService';
 import Truncate from 'react-truncate';
 
 
@@ -66,8 +65,8 @@ class AllBlogs extends Component{
                       <h2>{blog.title}</h2>
                       <p><img className="taglogo" src={taglogo} alt="tag logo"/>
                         <b><a href={`/categories/show/${blog.category}`} style={{color:"#0d47a1"}}>{blog.category.toUpperCase()}</a></b></p>
-                      <p className="blog-author">By <b>{blog.author}</b></p>
-                      <p className="blog-date">On {blog.date}</p>
+                      <p className="blog-author">by <b>{blog.author}</b></p>
+                      <p className="blog-date">on {blog.date}</p>
                       <div className="embed-responsive embed-responsive-4by3">
                         <img className="card-img-top embed-responsive-item"
                              src={`${baseUrl}/api/image/` + blog.imageFile}
@@ -81,7 +80,7 @@ class AllBlogs extends Component{
                       </p>
 
                       <div>
-                        <button onClick={() => {blogService.setBlogId(blog._id); this.props.history.push(`/blogs/show/${blog._id}`)}}
+                        <button onClick={() => {this.props.history.push(`/blogs/show/${blog._id}`)}}
                                   className="btn btn-primary readMoreBtn">Read
                           More...
                         </button>

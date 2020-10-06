@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
@@ -97,8 +97,8 @@ class MyBlogs extends Component{
                       <h2>{blog.title}</h2>
                       <p><img className="taglogo" src={taglogo} alt="tag logo"/>
                         <b><a href={`/categories/show/${blog.category}`} style={{color:"#0d47a1"}}>{blog.category.toUpperCase()}</a></b></p>
-                      <p className="blog-author">By <b>{blog.author}</b></p>
-                      <p className="blog-date">On {blog.date}</p>
+                      <p className="blog-author">by <b>{blog.author}</b></p>
+                      <p className="blog-date">on {blog.date}</p>
                       <div className="embed-responsive embed-responsive-4by3">
                         <img className="card-img-top embed-responsive-item"
                              src={`${baseUrl}/api/image/` + blog.imageFile}

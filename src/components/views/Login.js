@@ -51,8 +51,7 @@ const Login = () =>{
 
       };
 
-      setUsername('');
-      setPassword('');
+
 
       console.log("NEW user loginRequest : ", loginRequest);
 
@@ -61,9 +60,10 @@ const Login = () =>{
         setError(false);
         setSuccess(true);
         setSubmitted(false);
+        setUsername('');
+        setPassword('');
         if (res.data.message === true) { // username found
           await auth.login(loginRequest);
-
           if (auth.isLoggedIn) {
             setAlertError(false);
             setAlertSuccess(true);

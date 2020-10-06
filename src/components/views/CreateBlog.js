@@ -132,6 +132,7 @@ class CreateBlog extends Component{
                        placeholder="Title"
                        value={this.state.blog.title}
                        onChange={this.onChange}
+                       required
                 />
               </div>
 
@@ -148,13 +149,14 @@ class CreateBlog extends Component{
                         {category.name.toUpperCase()}
                       </option>))}
                   </select>
+                  <span style={{marginLeft: "15px"}}><a href={`/add-category`} style={{color:"#0d47a1"}}>Add Category</a></span>
               </div>
 
               <div className="form-group textEditor">
                 <label htmlFor="textEditorContent"/>
                 <CKEditor style={{minHeight: '300px'}}
                     editor={ ClassicEditor }
-                    data="<p>Hello from CKEditor 5!</p>"
+                    config={{placeholder: "What's in your mind?"}}
                     onInit={ editor => {
                       // You can store the "editor" and use when it is needed.
                       console.log( 'Editor is ready to use!', editor );
@@ -165,6 +167,7 @@ class CreateBlog extends Component{
                             editor.editing.view.document.getRoot()
                         );
                       });
+
 
                     } }
                     onChange={ ( event, editor ) => {
@@ -187,6 +190,7 @@ class CreateBlog extends Component{
                 <label htmlFor="image">Image</label>
                 <input type="file" id="image" name="imageFile" onChange={this.onImageUpload}
                        accept="image/*" ref="imageFile"
+                       required
                    />
               </div>
 

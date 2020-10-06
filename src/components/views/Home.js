@@ -8,10 +8,7 @@ import logo4 from '../../assets/4.png';
 import register from '../../assets/register.png';
 import Carousel from 'react-bootstrap/Carousel'
 
-import {
-  Nav,
-  Navbar,
-} from "react-bootstrap";
+import {Nav} from "react-bootstrap";
 
 
 
@@ -80,9 +77,8 @@ class Home extends Component{
                     <h2>How to Use BlogShare</h2>
                     <p>BlogShare requires registration or log in, after which
                       the user can post, edit, or delete own
-                      blog posts. In addition, user can add new categories, view
-                      a certain category's blogs and react to other
-                      people's blogs by commenting</p>
+                      blog posts. In addition, user can add new categories, view blogs which belong to a certain category and interact with other people's blogs by
+                      commenting</p>
                     <p>
                       <Nav.Link
                           href="/register"
@@ -137,7 +133,7 @@ class Home extends Component{
               <div className="row featurette">
                 <div className="col-md-7">
                   <h2 className="featurette-heading">Create an Account</h2>
-                  <p className="lead">In order to access to BlogShare
+                  <p className="lead">In order to access BlogShare
                     community, you need to create an account</p>
                 </div>
                 <div className="col-md-5">
@@ -180,7 +176,7 @@ class Home extends Component{
                     categories, you can
                     add a new category to be suitable with your blog
                     subject. You can also browse blogs which belong to a
-                    cretain category</p>
+                    certain category</p>
 
                 </div>
                 <div className="col-md-5">

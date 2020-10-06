@@ -4,8 +4,7 @@ import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
 import * as auth from '../../services/authService';
-import * as params from 'gridfs-stream';
-import * as blogService from '../../services/blogService';
+
 
 
 
@@ -101,13 +100,13 @@ class ShowBlog extends Component{
           <div id="show-blog" className="d-flex flex-column justify-content-center" style={{marginTop: '50px'}}>
             <h2 className="custom-header">Show Blog</h2>
             {blog && <div className="d-flex flex-wrap justify-content-center">
-                <div className="card mb-2 ml-2 p-4" style={{width: "50rem"}}>
+                <div className="card mb-2 ml-2 p-4" style={{width: "60rem"}}>
                     <h2 className="blog-title">{blog.title}</h2>
                     <p className="blog-category"><img className="taglogo" src={taglogo} alt="tag logo"/>
                       <b><a href={`/categories/show/${blog.category}`} style={{color:"#0d47a1"}}>{blog.category.toUpperCase()}</a></b>
                     </p>
-                    <p className="blog-author">By <b>{blog.author}</b></p>
-                    <p className="blog-date">On {blog.date} </p>
+                    <p className="blog-author">by <b>{blog.author}</b></p>
+                    <p className="blog-date">on {blog.date} </p>
                     <div className="embed-responsive embed-responsive-4by3">
                       <img className="card-img-top embed-responsive-item"
                            src={`${baseUrl}/api/image/` + blog.imageFile}
