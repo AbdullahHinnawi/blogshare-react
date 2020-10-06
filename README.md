@@ -1,7 +1,7 @@
 
 # Welcome to BlogShare App
 
-### ✨ [API Documentation](http://users.metropolia.fi/~abdullh/MovieSurfer_JavaDoc)
+### ✨ [API Documentation](http://users.metropolia.fi/~abdullh/BlogShare-API-Documentation/)
 
 ## Used Technologies:
 
