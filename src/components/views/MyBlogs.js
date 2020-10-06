@@ -1,20 +1,28 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import axios from 'axios';
 import baseUrl from '../../baseUrl';
 import taglogo from '../../assets/taglogo.png';
 import styled from 'styled-components';
+import Modal from "react-bootstrap/Modal";
 
 import * as auth from '../../services/authService';
+import Button from 'react-bootstrap/Button';
+
 
 class MyBlogs extends Component{
 
   constructor(props){
+
     super(props);
     this.state = {
       blogs: null,
       currentBlogId: null,
-      reveivedImage: null
-    }
+      reveivedImage: null,
+      showConfDial: false
+    };
+    this.handleClose= this.handleClose.bind(this);
+    this.handleShow= this.handleShow.bind(this);
+
   }
   async componentDidMount() {
     const userId = auth.getUserId();
@@ -40,17 +48,43 @@ class MyBlogs extends Component{
 
 
   }
+  handleClose(){
+    this.setState({showConfDial: false});
+  }
+  handleShow(){
+    this.setState({showConfDial: true});
+  }
+  async deleteBlog(){
+    const hiddenDiv = document.getElementById('hiddenDiv');
+    const blogId = hiddenDiv.getAttribute('data-value');
+    console.log("blogId", blogId);
+    const options = {
+      headers:{
+        Authorization: auth.getToken(),
+      }
+    };
+    try{
+      const res =  await axios.delete(baseUrl+'/api/myblogs?id='+blogId, options);
+      window.console.log('data',res);
+      //const index = this.blogs.findIndex(blog => blog._id === this.currentBlogId);
+      //this.blogs.splice(index,1);
+      window.location.reload();
+    }catch(err){
+      window.console.log(err);
+    }
+  }
 
   render() {
     const {blogs} = this.state;
 
+
     return (
         <Styles>
 
-          (
+
           <div id="my-blogs"
                className="d-flex flex-column justify-content-center"
-               style={{marginTop: '30px'}}>
+               style={{marginTop: '50px'}}>
             <h2 className="custom-header">My Blogs</h2>
 
             {blogs && blogs.length > 0 &&
@@ -74,7 +108,8 @@ class MyBlogs extends Component{
 
                       {blog.authorId === auth.getUserId() && <div className="d-flex editDeleteDiv">
                         <span><button type="button" tag="button" className=" card-link btn btn-primary">Edit</button></span>
-                        <a className="card-link btn btn-danger ml-4" href="#">Delete</a>
+                        <button onClick={this.handleShow} className="card-link btn btn-danger ml-4">Delete</button>
+                        <div id="hiddenDiv" data-value={blog._id} style={{display: "none"}}/>
                       </div>}
 
                     </div>
@@ -84,14 +119,32 @@ class MyBlogs extends Component{
 
             </div>}
 
-            {!blogs && <div className="ml-2"
-                            style={{maxWidth: "35rem", marginBottom: "30rem"}}>
+            <div>
+              <Modal show={this.state.showConfDial} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Delete Confirmation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure, you would like to delete this blog?</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={this.handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="danger" onClick={this.deleteBlog}>
+                    Delete
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+            </div>
+
+            {(!blogs || this.state.blogs.length === 0 || blogs === 0) && <div className="ml-2"
+                            style={{maxWidth: "35rem", marginBottom: "35rem"}}>
               <div className="alert alert-info">No Blogs Found.</div>
             </div>}
 
 
           </div>
-          )
+
         </Styles>
     );
 

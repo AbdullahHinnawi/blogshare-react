@@ -94,7 +94,7 @@ class AllBlogs extends Component{
 
             </div>}
 
-            {!blogs && <div className="ml-2"
+            {(!blogs || this.state.blogs.length === 0 || blogs === 0) && <div className="ml-2"
                             style={{maxWidth: '35rem', marginBottom: '30rem'}}>
               <div className="alert alert-info">No Blogs Found.</div>
             </div>}

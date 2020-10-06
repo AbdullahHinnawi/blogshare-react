@@ -13,7 +13,7 @@ export function generateJWT(user){
 export function requireLogin(req, res,  next){
   const token = decodeToken(req);
   if(!token){
-    return res.status(401).json({message: 'You must be logged in!'});
+    return res.status(401).json({message: 'Access token is missing or invalid'});
   }
   next();
 }

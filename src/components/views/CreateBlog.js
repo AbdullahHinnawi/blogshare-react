@@ -77,6 +77,7 @@ class CreateBlog extends Component{
       window.console.log('body: ', this.state.blog.body);
 
       let formData = new FormData();
+
       formData.append('title', this.state.blog.title);
       formData.append('body', this.state.blog.body);
       formData.append('category', this.state.blog.category);
