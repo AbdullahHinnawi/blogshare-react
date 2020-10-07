@@ -131,7 +131,7 @@ class Home extends Component{
             <div id="marketing" className="container marketing">
 
               <div className="row featurette">
-                <div className="col-md-7">
+                <div className="col-md-7" style={{maxWidth: "600px"}}>
                   <h2 className="featurette-heading">Create an Account</h2>
                   <p className="lead">In order to access BlogShare
                     community, you need to create an account</p>
@@ -145,7 +145,7 @@ class Home extends Component{
               <hr className="featurette-divider"/>
 
               <div className="row featurette">
-                <div className="col-md-7 order-md-2 postEditSection">
+                <div className="col-md-7 order-md-2 postEditSection" style={{maxWidth: "600px"}}>
                   <h2 className="featurette-heading">Post, Edit, or Delete
                     Blog Posts</h2>
                   <p className="lead">Share your knowledge, experience or
@@ -167,7 +167,7 @@ class Home extends Component{
               <hr className="featurette-divider"/>
 
               <div className="row featurette">
-                <div className="col-md-7">
+                <div className="col-md-7" style={{maxWidth: "600px"}}>
                   <h2 className="featurette-heading">Add New Categories &
                     Browse Blogs by Category</h2>
                   <p className="lead"
@@ -187,7 +187,7 @@ class Home extends Component{
               </div>
               <hr className="featurette-divider"/>
               <div className="row featurette">
-                <div className="col-md-7 order-md-2">
+                <div className="col-md-7 order-md-2" style={{maxWidth: "600px"}}>
                   <h2 className="featurette-heading">Add Comment</h2>
                   <p className="lead">Interact with other people's blogs by
                     commenting</p>

@@ -84,7 +84,7 @@ class ShowBlog extends Component{
       }
     }).then((res) =>{
       window.console.log('res.data', res.data);
-      //window.location.reload();
+      window.location.reload();
     }).catch((err) =>{
       window.console.log('errrrrrrrrrrrrrrrrrrrroooooooooooor');
       window.console.log(err);
