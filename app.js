@@ -10,7 +10,6 @@ const serveStatic = require('serve-static');
 
 const app = express();
 app.use(serveStatic(__dirname + "/dist"));
-//process.env.NODE_ENV = 'production';
 
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
@@ -65,16 +64,15 @@ app.use(express.static(__dirname + "/dist"));
 // you can use '/*' instead of /.*/
 app.get(/.*/ , function(req,res) {
 
-  res.sendfile(__dirname + "/index.html");
-  console.log("get/.*/ implemented");
+  //res.sendfile(__dirname + "/index.html");
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  console.log("get /.*/ implemented");
 });
-
 
 
 
 if(process.env.NODE_ENV === undefined){
   process.env.NODE_ENV = "development";
-
 }
 
 app.listen(port, () => console.log(`Blogshare app listening on port ${port} in ${process.env.NODE_ENV} mode!`));
