@@ -15,6 +15,8 @@ app.use(serveStatic(__dirname + "/dist"));
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
 
+// Catch-all redirects every request '/*' to index.html
+// you can use '/*' instead of /.*/
 app.get('/*', function(req, res) {
   if(process.env.NODE_ENV !== 'production'){
     return res.send('Running server in development mode');
@@ -60,13 +62,6 @@ console.log("Used port: ", port);
 
 app.use(express.static(__dirname + "/dist"));
 
-// Catch-all redirects every request '/*' to index.html
-// you can use '/*' instead of /.*/
-app.get(/.*/ , function(req,res) {
-
-  res.sendfile(__dirname + "/index.html");
-  console.log("get/.*/ implemented");
-});
 
 
 
