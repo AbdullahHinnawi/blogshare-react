@@ -51,7 +51,8 @@ var Categories = mongoose.model('Categories', CategorySchema, 'categories');
 
 
 // ****************** GRID FS STORAGE ****************** //
-const url = 'mongodb://localhost:27017/bloggeri';
+//const url = 'mongodb://localhost:27017/bloggeri';
+const url = 'mongodb+srv://abdullah2:ykRykReK1uHl3ssw@notescluster.6avck.mongodb.net/blogshare-react?retryWrites=true&w=majority';
 
 // useUnifiedTopology: true
 const options = { native_parser: true,useUnifiedTopology: true, useNewUrlParser: true };
