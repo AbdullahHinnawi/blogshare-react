@@ -15,14 +15,14 @@ var createError = require('http-errors');
 
 
 const app = express();
-app.use(serveStatic(__dirname + "/dist/blogshare-react"));
+app.use(serveStatic(__dirname + "/dist"));
 //process.env.NODE_ENV = 'production';
 app.get('/', function(req, res) {
   if(process.env.NODE_ENV !== 'production'){
     return res.send('Running server in development mode');
   }else{
     console.log('Else implemented to redirect to index.html');
-    return res.sendFile('/index.html', {root: __dirname + '/dist/blogshare-react'});
+    return res.sendFile('/index.html', {root: __dirname + '/dist'});
   }
 });
 
@@ -67,7 +67,7 @@ const port = process.env.PORT || 3000;
 console.log("Used port: ", port);
 //  "sharp": "^0.23.3",
 
-app.use(express.static(__dirname + "/dist/blogshare-react"));
+app.use(express.static(__dirname + "/dist"));
 
 // Catch-all redirects every request '/*' to index.html
 // you can use '/*' instead of /.*/
