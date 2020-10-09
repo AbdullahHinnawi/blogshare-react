@@ -12,12 +12,11 @@ const app = express();
 app.use(serveStatic(__dirname + "/dist"));
 //process.env.NODE_ENV = 'production';
 
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'build')));
+//app.use(express.static(__dirname));
+//app.use(express.static(path.join(__dirname, 'build')));
 
-// Catch-all redirects every request '/*' to index.html
-// you can use '/*' instead of /.*/
-app.get('/*', function(req, res) {
+
+app.get('/', function(req, res) {
   if(process.env.NODE_ENV !== 'production'){
     return res.send('Running server in development mode');
   }else{
@@ -27,7 +26,7 @@ app.get('/*', function(req, res) {
 });
 
 
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 app.use((req, res, next) => {
@@ -62,7 +61,13 @@ console.log("Used port: ", port);
 
 app.use(express.static(__dirname + "/dist"));
 
+// Catch-all redirects every request '/*' to index.html
+// you can use '/*' instead of /.*/
+app.get(/.*/ , function(req,res) {
 
+  res.sendfile(__dirname + "/index.html");
+  console.log("get/.*/ implemented");
+});
 
 
 
