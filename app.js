@@ -15,14 +15,14 @@ var createError = require('http-errors');
 
 
 const app = express();
-app.use(serveStatic(__dirname + "/dist"));
+app.use(serveStatic(__dirname + "/dist/blogshare-react"));
 //process.env.NODE_ENV = 'production';
 app.get('/', function(req, res) {
   if(process.env.NODE_ENV !== 'production'){
     return res.send('Running server in development mode');
   }else{
     console.log('Else implemented to redirect to index.html');
-    return res.sendFile('/dist/blogshare-react/index.html', {root: __dirname + '/dist/blogshare-react'});
+    return res.sendFile('/index.html', {root: __dirname + '/dist/blogshare-react'});
   }
 });
 
@@ -73,7 +73,7 @@ app.use(express.static(__dirname + "/dist/blogshare-react"));
 // you can use '/*' instead of /.*/
 app.get(/.*/ , function(req,res) {
 
-  res.sendfile(__dirname + "/dist/blogshare-react/index.html");
+  res.sendfile(__dirname + "/index.html");
   console.log("get/.*/ implemented");
 });
 
