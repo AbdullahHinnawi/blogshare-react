@@ -71,10 +71,14 @@ app.use(express.static(__dirname + "/dist/"));
 
 // Catch-all redirects every request '/*' to index.html
 // you can use '/*' instead of /.*/
-app.get(/.*/ , function(req,res) {
-  res.sendfile(__dirname + "/dist/index.html");
-  console.log("get/.*/ implemented");
+
+
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'build', 'index.html');
+  res.sendFile(index);
+  console.log("get * implemented, line 79");
 });
+
 
 if(process.env.NODE_ENV === undefined){
   process.env.NODE_ENV = "development";
