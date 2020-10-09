@@ -93,13 +93,13 @@ class CreateBlog extends Component{
         }
       }).then(function(res) {
         window.console.log('res.data', res.data);
+        this.setState({
+          message: 'Blog created successfully!',
+          error: false,
+          success: true
+        });
       }).catch(function(err) {
         window.console.log('errrrrrrrrrrrrrrrrrrrroooooooooooor', err);
-      });
-      this.setState({
-        message: 'Blog created successfully!',
-        error: false,
-        success: true
       });
       this.props.history.push('/all-blogs');
 

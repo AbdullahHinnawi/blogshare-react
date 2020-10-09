@@ -47,7 +47,7 @@ class  NavigationBar extends Component{
             {!auth.isLoggedIn() ? (<Nav.Link href="/register">Register</Nav.Link>) : null}
             {!auth.isLoggedIn() ? (<Nav.Link href="/login">Login</Nav.Link>) : null }
             { auth.isLoggedIn() ? (<Nav.Link href="/login" onClick={auth.logout}>Logout</Nav.Link>) : null }
-            <Nav.Link>{auth.getUsername()} <img src={loginIcon} alt="userIcon" height="30" width="30" style={{marginTop:'-2px'}}/></Nav.Link>
+            <Nav.Link><img src={loginIcon} alt="userIcon" height="30" width="30" style={{marginTop:'-2px'}}/> {auth.getUsername()}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

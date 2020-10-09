@@ -56,7 +56,7 @@ const Login = () =>{
       console.log("NEW user loginRequest : ", loginRequest);
 
       await axios.get(baseUrl+'/api/users/' + loginRequest.username).then(async res => {
-        window.console.log('res', res);
+        //window.console.log('res', res);
         window.console.log('res.data.message', res.data.message);
         setError(false);
         setSuccess(true);
