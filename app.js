@@ -12,8 +12,8 @@ const app = express();
 app.use(serveStatic(__dirname + "/dist"));
 //process.env.NODE_ENV = 'production';
 
-//app.use(express.static(__dirname));
-//app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.get('/', function(req, res) {
