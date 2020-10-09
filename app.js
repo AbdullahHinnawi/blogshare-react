@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
     return res.send('Running server in development mode');
   }else{
     console.log('Else implemented to redirect to index.html');
-    return res.sendFile('/dist/index.html', {root: __dirname + '/dist'});
+    return res.sendFile('/dist/blogshare-react/index.html', {root: __dirname + '/dist/blogshare-react'});
   }
 });
 
@@ -67,17 +67,18 @@ const port = process.env.PORT || 3000;
 console.log("Used port: ", port);
 //  "sharp": "^0.23.3",
 
-app.use(express.static(__dirname + "/dist/"));
+app.use(express.static(__dirname + "/dist/blogshare-react"));
 
 // Catch-all redirects every request '/*' to index.html
 // you can use '/*' instead of /.*/
+app.get(/.*/ , function(req,res) {
 
-
-app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'build', 'index.html');
-  res.sendFile(index);
-  console.log("get * implemented, line 79");
+  res.sendfile(__dirname + "/dist/blogshare-react/index.html");
+  console.log("get/.*/ implemented");
 });
+
+
+
 
 
 if(process.env.NODE_ENV === undefined){
