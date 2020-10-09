@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 const multer = require('multer');
 //const upload = multer({dest: './public/images'});
-var moment = require('moment');
+const moment = require('moment');
 
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
