@@ -1,13 +1,16 @@
 
 # Welcome to BlogShare App
 
+### ✨ [See Project Online](https://blogshare-react.herokuapp.com/)
 ### ✨ [API Documentation](http://users.metropolia.fi/~abdullh/BlogShare-API-Documentation/)
+
 
 ## Used Technologies:
 
 - React
 - Bootstrap
 - Node
+- Express
 - MongoDB
 
 ## Install:
